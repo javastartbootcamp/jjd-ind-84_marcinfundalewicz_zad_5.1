@@ -3,32 +3,38 @@ package pl.javastart.task;
 import java.util.Scanner;
 
 public class CoordinateSystem {
-    int x;
-    int y;
 
     public void run(Scanner scanner) {
-        System.out.println("Podaj X");
-        x = scanner.nextInt();
-        System.out.println("Podaj Y");
-        y = scanner.nextInt();
-        System.out.print("Punkt (" + x + "," + y + ")");
+        Point point = loadPoint(scanner);
+        point.print();
+        whichQuarter(point);
     }
 
-    public void whichQuarter(Scanner scanner) {
+    private Point loadPoint(Scanner scanner) {
+        System.out.println("Podaj X");
+        int x = scanner.nextInt();
+        System.out.println("Podaj Y");
+        int y = scanner.nextInt();
+        return new Point(x, y);
+    }
+
+    public void whichQuarter(Point point) {
+        int x = point.getX();
+        int y = point.getY();
         if (x > 0 && y > 0) {
-            System.out.print(" leży w I ćwiartce układu współrzędnych");
+            point.printQuarter("I");
         } else if (x < 0 && y > 0) {
-            System.out.println(" leży w II ćwiartce układu współrzędnych");
+            point.printQuarter("II");
         } else if (x < 0 && y < 0) {
-            System.out.println(" leży w III ćwiartce układu współrzędnych");
+            point.printQuarter("III");
         } else if (x > 0 && y < 0) {
-            System.out.println(" leży w IV ćwiartce układu współrzędnych");
+            point.printQuarter("IV");
         } else if (x == 0 && y == 0) {
-            System.out.println(" leży w centrum");
+            System.out.print(" leży na środku układu współrzędnych");
         } else if (x == 0 && (y > 0 || y < 0)) {
-            System.out.println(" leży na osi Y");
+            System.out.print(" leży na osi Y");
         } else if (y == 0 && (x > 0 || x < 0)) {
-            System.out.println(" leży na osi X");
+            System.out.print(" leży na osi X");
         }
     }
 }
